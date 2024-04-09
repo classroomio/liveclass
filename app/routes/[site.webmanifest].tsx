@@ -2,8 +2,8 @@ import { json } from 'react-router'
 
 export const loader = async () => {
 	return json({
-		name: 'Orange Meets',
-		short_name: 'Orange Meets',
+		name: 'ClassroomIO Live Class',
+		short_name: 'ClassroomIO Live Class',
 		icons: [
 			{
 				src: '/android-chrome-192x192.png',

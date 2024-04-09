@@ -76,7 +76,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 
 export const meta: MetaFunction = () => [
 	{
-		title: 'Orange Meets',
+		title: 'ClassroomIO Live Class',
 	},
 ]
 
@@ -128,8 +128,11 @@ const Document: FC<{ children?: ReactNode }> = ({ children }) => {
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<meta name="apple-mobile-web-app-title" content="Orange Meets" />
-				<meta name="application-name" content="Orange Meets" />
+				<meta
+					name="apple-mobile-web-app-title"
+					content="ClassroomIO Live Class"
+				/>
+				<meta name="application-name" content="ClassroomIO Live Class" />
 				<meta name="msapplication-TileColor" content="#ffffff" />
 				<meta
 					name="theme-color"
