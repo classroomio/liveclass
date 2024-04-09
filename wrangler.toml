@@ -1,4 +1,4 @@
-name = "orange-meets"
+name = "cio-liveclass"
 # https://developers.cloudflare.com/workers/platform/compatibility-dates
 compatibility_date = "2022-04-05"
 account_id = "97a2feecc74084197a726ed737c4c508"
