@@ -2,13 +2,15 @@ import type { ActionFunction, LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { json, redirect } from '@remix-run/cloudflare'
 import { Form, useLoaderData } from '@remix-run/react'
 import invariant from 'tiny-invariant'
-import { Button, ButtonLink } from '~/components/Button'
+import { Button } from '~/components/Button'
 import { Disclaimer } from '~/components/Disclaimer'
 import { Input } from '~/components/Input'
 import { Label } from '~/components/Label'
 import { useUserMetadata } from '~/hooks/useUserMetadata'
 import { ACCESS_AUTHENTICATED_USER_EMAIL_HEADER } from '~/utils/constants'
 import getUsername from '~/utils/getUsername.server'
+
+const disableSignUp = true
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	const directoryUrl = context.USER_DIRECTORY_URL
@@ -19,6 +21,9 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+	if (disableSignUp) {
+		throw redirect('/')
+	}
 	const room = (await request.formData()).get('room')
 	invariant(typeof room === 'string')
 	return redirect(room.replace(/ /g, '-'))
@@ -49,20 +54,34 @@ export default function Index() {
 					</div>
 				</div>
 				<div>
-					<ButtonLink to="/new" className="text-sm">
+					<Button
+						onClick={() => alert('New room is temp disabled')}
+						className="text-sm"
+						disabled
+					>
 						New Room
-					</ButtonLink>
+					</Button>
 				</div>
 				<details className="cursor-pointer">
 					<summary className="text-zinc-500 dark:text-zinc-400">
 						Or join a room
 					</summary>
-					<Form className="flex items-end w-full gap-4 pt-4" method="post">
+					<Form
+						className="flex items-end w-full gap-4 pt-4"
+						method="post"
+						aria-disabled
+					>
 						<div className="space-y-2">
 							<Label htmlFor="room">Room name</Label>
-							<Input name="room" id="room" required />
+							<Input name="room" id="room" required disabled />
 						</div>
-						<Button className="text-xs" type="submit" displayType="secondary">
+						<Button
+							className="text-xs"
+							type="button"
+							onClick={() => alert('Temp disabled')}
+							displayType="secondary"
+							disabled
+						>
 							Join
 						</Button>
 					</Form>

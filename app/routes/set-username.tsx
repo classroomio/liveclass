@@ -6,7 +6,13 @@ import { Input } from '~/components/Input'
 import { ACCESS_AUTHENTICATED_USER_EMAIL_HEADER } from '~/utils/constants'
 import { setUsername } from '~/utils/getUsername.server'
 
+const disableSignUp = true
+
 export const action = async ({ request }: ActionFunctionArgs) => {
+	if (disableSignUp) {
+		throw redirect('/')
+	}
+
 	const url = new URL(request.url)
 	const returnUrl = url.searchParams.get('return-url') ?? '/'
 	const accessUsername = request.headers.get(
@@ -24,7 +30,9 @@ export default function SetUsername() {
 			<h1 className="text-3xl font-bold">🍊 ClassroomIO Live Class</h1>
 			<Form className="flex items-end gap-4" method="post">
 				<div className="grid gap-3">
-					<label htmlFor="username">Enter your display name</label>
+					<label htmlFor="username" aria-disabled>
+						Enter your display name
+					</label>
 					<Input
 						autoComplete="off"
 						autoFocus
@@ -32,9 +40,15 @@ export default function SetUsername() {
 						type="text"
 						id="username"
 						name="username"
+						disabled
 					/>
 				</div>
-				<Button className="text-xs" type="submit">
+				<Button
+					className="text-xs"
+					type="button"
+					onClick={() => alert('Signup is temporarily disabled')}
+					disabled
+				>
 					Submit
 				</Button>
 			</Form>
